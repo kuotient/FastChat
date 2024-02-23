@@ -88,7 +88,7 @@ class MatchPair:
 def load_questions(question_file: str, begin: Optional[int], end: Optional[int]):
     """Load questions from a file."""
     questions = []
-    with open(question_file, "r") as ques_file:
+    with open(question_file, "r", encoding='utf-8') as ques_file:
         for line in ques_file:
             if line:
                 questions.append(json.loads(line))
@@ -109,7 +109,7 @@ def load_model_answers(answer_dir: str):
     for filename in filenames:
         model_name = os.path.basename(filename)[:-6]
         answer = {}
-        with open(filename) as fin:
+        with open(filename, encoding='utf-8') as fin:
             for line in fin:
                 line = json.loads(line)
                 answer[line["question_id"]] = line
@@ -226,7 +226,7 @@ def play_a_match_single(match: MatchSingle, output_file: str):
 
     if output_file:
         os.makedirs(os.path.dirname(output_file), exist_ok=True)
-        with open(output_file, "a") as fout:
+        with open(output_file, "a", encoding='utf-8') as fout:
             fout.write(json.dumps(result) + "\n")
 
     return result
@@ -398,7 +398,7 @@ def play_a_match_pair(match: MatchPair, output_file: str):
 
     if output_file:
         os.makedirs(os.path.dirname(output_file), exist_ok=True)
-        with open(output_file, "a") as fout:
+        with open(output_file, "a", encoding="utf-8") as fout:
             fout.write(json.dumps(result) + "\n")
 
     return result
