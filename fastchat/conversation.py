@@ -1584,6 +1584,8 @@ register_conv_template(
 register_conv_template(
     Conversation(
         name="gemma",
+        system_template="<start_of_turn>system\n{system_message}",
+        system_message="You are a helpful, assistant.",
         roles=("<start_of_turn>user", "<start_of_turn>model"),
         sep_style=SeparatorStyle.CHATML,
         sep="<end_of_turn>",
