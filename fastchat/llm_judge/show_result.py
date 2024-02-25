@@ -15,7 +15,7 @@ def display_result_single(args):
         input_file = args.input_file
 
     print(f"Input file: {input_file}")
-    df_all = pd.read_json(input_file, lines=True)
+    df_all = pd.read_json(input_file, lines=True, encoding="utf-8")
     df = df_all[["model", "score", "turn"]]
     df = df[df["score"] != -1]
 
@@ -45,7 +45,7 @@ def display_result_pairwise(args):
         input_file = args.input_file
 
     print(f"Input file: {input_file}")
-    df_all = pd.read_json(input_file, lines=True)
+    df_all = pd.read_json(input_file, lines=True, encoding="utf-8")
     df_all = df_all[(df_all["g1_winner"] != "error") & (df_all["g2_winner"] != "error")]
 
     model_list = (
