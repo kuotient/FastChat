@@ -1210,6 +1210,23 @@ register_conv_template(
     )
 )
 
+# Qwen1.5 default template
+register_conv_template(
+    Conversation(
+        name="qwen1.5",
+        system_template="<|im_start|>system\n{system_message}",
+        system_message="당신은 인공지능 어시스턴트입니다. 사용자의 질문에 상세하고 친절하게 답변해주세요.",
+        roles=("<|im_start|>user", "<|im_start|>assistant"),
+        sep_style=SeparatorStyle.CHATML,
+        sep="<|im_end|>",
+        stop_token_ids=[
+            151643,
+            151644,
+            151645,
+        ],  # "<|endoftext|>", "<|im_start|>", "<|im_end|>"
+        stop_str="<|im_end|>",
+    )
+)
 
 # Qwen-chat default template
 # source: https://huggingface.co/Qwen/Qwen-7B-Chat/blob/main/qwen_generation_utils.py#L130
@@ -1673,6 +1690,16 @@ if __name__ == "__main__":
     
     print("-- gemma template --")
     conv = get_conv_template("gemma")
+    conv.append_message(conv.roles[0], "Hello!")
+    conv.append_message(conv.roles[1], "Hi!")
+    conv.append_message(conv.roles[0], "How are you?")
+    conv.append_message(conv.roles[1], None)
+    print(conv.get_prompt())
+    
+    print("\n")
+    
+    print("-- qwen1.5 template --")
+    conv = get_conv_template("qwen1.5")
     conv.append_message(conv.roles[0], "Hello!")
     conv.append_message(conv.roles[1], "Hi!")
     conv.append_message(conv.roles[0], "How are you?")

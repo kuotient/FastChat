@@ -1643,6 +1643,16 @@ class WizardCoderAdapter(BaseModelAdapter):
         # Same as Alpaca, see :
         # https://github.com/nlpxucan/WizardLM/blob/main/WizardCoder/src/inference_wizardcoder.py#L60
         return get_conv_template("alpaca")
+    
+    
+class Qwen1_5Adapter(BaseModelAdapter):
+    """The model adapter for Qwen1.5"""
+
+    def match(self, model_path: str):
+        return "qwen1.5" in model_path.lower()
+
+    def get_default_conv_template(self, model_path: str) -> Conversation:
+        return get_conv_template("qwen1.5")
 
 
 class QwenChatAdapter(BaseModelAdapter):
@@ -2293,6 +2303,7 @@ class SynatraAdapter(BaseModelAdapter):
 register_model_adapter(SynatraAdapter)
 register_model_adapter(GemmaAdapter)
 register_model_adapter(OrionAdapter)
+register_model_adapter(Qwen1_5Adapter)
 
 register_model_adapter(PeftModelAdapter)
 register_model_adapter(StableVicunaAdapter)
