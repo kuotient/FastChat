@@ -1593,43 +1593,88 @@ register_conv_template(
     )
 )
 
+# source: https://huggingface.co/maywell/Synatra-7B-v0.3-dpo/blob/main/tokenizer_config.json
+register_conv_template(
+    Conversation(
+        name="synatra",
+        roles=("<|im_start|>user", "<|im_start|>assistant"),
+        sep_style=SeparatorStyle.CHATML,
+        sep="<|im_end|>",
+        stop_token_ids=[
+            32000,
+        ],  # "<|im_end|>"
+        stop_str="<|im_end|>",
+    )
+)
+
+# Orion template
+register_conv_template(
+    Conversation(
+        name="orion",
+        system_template="<|system|>\n당신은 인공지능 어시스턴트입니다.",
+        roles=("<|user|>", "<|assistant|>"),
+        sep_style=SeparatorStyle.CHATML,
+        sep="</s>",
+        stop_token_ids=[2],
+        stop_str="</s>",
+    )
+)
+
 
 if __name__ == "__main__":
     from fastchat.conversation import get_conv_template
 
-    print("-- Vicuna template --")
-    conv = get_conv_template("vicuna_v1.1")
+    # print("-- Vicuna template --")
+    # conv = get_conv_template("vicuna_v1.1")
+    # conv.append_message(conv.roles[0], "Hello!")
+    # conv.append_message(conv.roles[1], "Hi!")
+    # conv.append_message(conv.roles[0], "How are you?")
+    # conv.append_message(conv.roles[1], None)
+    # print(conv.get_prompt())
+
+    # print("\n")
+
+    # print("-- Llama-2 template --")
+    # conv = get_conv_template("llama-2")
+    # conv.set_system_message("You are a helpful, respectful and honest assistant.")
+    # conv.append_message(conv.roles[0], "Hello!")
+    # conv.append_message(conv.roles[1], "Hi!")
+    # conv.append_message(conv.roles[0], "How are you?")
+    # conv.append_message(conv.roles[1], None)
+    # print(conv.get_prompt())
+
+    # print("\n")
+
+    # print("-- ChatGPT template --")
+    # conv = get_conv_template("chatgpt")
+    # conv.append_message(conv.roles[0], "Hello!")
+    # conv.append_message(conv.roles[1], "Hi!")
+    # conv.append_message(conv.roles[0], "How are you?")
+    # conv.append_message(conv.roles[1], None)
+    # print(conv.to_openai_api_messages())
+
+    # print("\n")
+
+    # print("-- Claude template --")
+    # conv = get_conv_template("claude")
+    # conv.append_message(conv.roles[0], "Hello!")
+    # conv.append_message(conv.roles[1], "Hi!")
+    # conv.append_message(conv.roles[0], "How are you?")
+    # conv.append_message(conv.roles[1], None)
+    # print(conv.get_prompt())
+    
+    print("-- Synatra template --")
+    conv = get_conv_template("synatra")
     conv.append_message(conv.roles[0], "Hello!")
     conv.append_message(conv.roles[1], "Hi!")
     conv.append_message(conv.roles[0], "How are you?")
     conv.append_message(conv.roles[1], None)
     print(conv.get_prompt())
-
+    
     print("\n")
-
-    print("-- Llama-2 template --")
-    conv = get_conv_template("llama-2")
-    conv.set_system_message("You are a helpful, respectful and honest assistant.")
-    conv.append_message(conv.roles[0], "Hello!")
-    conv.append_message(conv.roles[1], "Hi!")
-    conv.append_message(conv.roles[0], "How are you?")
-    conv.append_message(conv.roles[1], None)
-    print(conv.get_prompt())
-
-    print("\n")
-
-    print("-- ChatGPT template --")
-    conv = get_conv_template("chatgpt")
-    conv.append_message(conv.roles[0], "Hello!")
-    conv.append_message(conv.roles[1], "Hi!")
-    conv.append_message(conv.roles[0], "How are you?")
-    conv.append_message(conv.roles[1], None)
-    print(conv.to_openai_api_messages())
-
-    print("\n")
-
-    print("-- Claude template --")
-    conv = get_conv_template("claude")
+    
+    print("-- gemma template --")
+    conv = get_conv_template("gemma")
     conv.append_message(conv.roles[0], "Hello!")
     conv.append_message(conv.roles[1], "Hi!")
     conv.append_message(conv.roles[0], "How are you?")
