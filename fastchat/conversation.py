@@ -1215,7 +1215,7 @@ register_conv_template(
     Conversation(
         name="qwen1.5",
         system_template="<|im_start|>system\n{system_message}",
-        system_message="당신은 인공지능 어시스턴트입니다. 사용자의 질문에 상세하고 친절하게 답변해주세요.",
+        system_message="You are a helpful assistant.",
         roles=("<|im_start|>user", "<|im_start|>assistant"),
         sep_style=SeparatorStyle.CHATML,
         sep="<|im_end|>",
