@@ -1601,9 +1601,10 @@ register_conv_template(
 register_conv_template(
     Conversation(
         name="gemma",
-        roles=("<start_of_turn>user", "<start_of_turn>model"),
-        sep_style=SeparatorStyle.CHATML,
-        sep="<end_of_turn>",
+        system_message="<bos>",
+        roles=("<start_of_turn>user\n", "<start_of_turn>model\n"),
+        sep_style=SeparatorStyle.NO_COLON_SINGLE,
+        sep="<end_of_turn>\n",
         stop_str="<end_of_turn>",
     )
 )
@@ -1622,34 +1623,6 @@ register_conv_template(
         stop_str="<|im_end|>",
     )
 )
-
-# Orion
-register_conv_template(
-    Conversation(
-        name="orion",
-        system_template="<|system|>\n당신은 인공지능 어시스턴트입니다.",
-        roles=("<|user|>", "<|assistant|>"),
-        sep_style=SeparatorStyle.CHATML,
-        sep="</s>",
-        stop_token_ids=[2],
-        stop_str="</s>",
-    )
-)
-
-# EEVE
-# reference: https://huggingface.co/yanolja/EEVE-Korean-Instruct-2.8B-v1.0/blob/main/tokenizer_config.json
-# I think they mix chatml with alpaca style template for EEVE.
-register_conv_template(
-    Conversation(
-        name="eeve",
-        system_message="A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions.",
-        roles=("Human", "Assistant"),
-        sep_style=SeparatorStyle.ADD_COLON_TWO,
-        sep="\n",
-        sep2="<|im_end|>",
-    )
-)
-
 
 if __name__ == "__main__":
     from fastchat.conversation import get_conv_template

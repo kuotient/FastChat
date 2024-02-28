@@ -2278,16 +2278,6 @@ class GemmaAdapter(BaseModelAdapter):
         return get_conv_template("gemma")
 
 
-class OrionAdapter(BaseModelAdapter):
-    """The model adapter for Orion (e.g. Orionstar/Orion-14B-Chat)"""
-
-    def match(self, model_path: str):
-        return "orion" in model_path.lower()
-
-    def get_default_conv_template(self, model_path: str) -> Conversation:
-        return get_conv_template("orion")
-
-
 class SynatraAdapter(BaseModelAdapter):
     """The model adapter for Synatra (e.g. maywell/Synatra-7B-v0.3-DPO)"""
 
@@ -2297,24 +2287,12 @@ class SynatraAdapter(BaseModelAdapter):
     def get_default_conv_template(self, model_path: str) -> Conversation:
         return get_conv_template("synatra")
     
-    
-class EeveAdapter(BaseModelAdapter):
-    """The model adapter for EEVE (e.g. yanolja/EEVE-Korean-Instruct-10.8B-v1.0)"""
-
-    def match(self, model_path: str):
-        return "eeve" in model_path.lower()
-
-    def get_default_conv_template(self, model_path: str) -> Conversation:
-        return get_conv_template("eeve")
 
 # Note: the registration order matters.
 # The one registered earlier has a higher matching priority.
 register_model_adapter(SynatraAdapter)
 register_model_adapter(GemmaAdapter)
-register_model_adapter(OrionAdapter)
 register_model_adapter(Qwen1_5Adapter)
-register_model_adapter(EeveAdapter)
-
 register_model_adapter(PeftModelAdapter)
 register_model_adapter(StableVicunaAdapter)
 register_model_adapter(VicunaAdapter)
@@ -2402,6 +2380,7 @@ register_model_adapter(SolarAdapter)
 register_model_adapter(SteerLMAdapter)
 register_model_adapter(LlavaAdapter)
 register_model_adapter(YuanAdapter)
+register_model_adapter(GemmaAdapter)
 
 # After all adapters, try the default base adapter.
 register_model_adapter(BaseModelAdapter)
