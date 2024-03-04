@@ -1624,6 +1624,23 @@ register_conv_template(
     )
 )
 
+# EEVE
+# source: custom(chatml)
+register_conv_template(
+    Conversation(
+        name="eeve",
+        system_template="<|im_start|>system\n{system_message}",
+        system_message="당신은 인공지능 어시스턴트입니다.",
+        roles=("<|im_start|>user", "<|im_start|>assistant"),
+        sep_style=SeparatorStyle.CHATML,
+        sep="<|im_end|>",
+        stop_token_ids=[
+            32000,
+        ],  # "<|im_end|>"
+        stop_str="<|im_end|>",
+    )
+)
+
 if __name__ == "__main__":
     from fastchat.conversation import get_conv_template
 
