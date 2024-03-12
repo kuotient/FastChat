@@ -38,6 +38,11 @@ def get_answer(
         temperature = temperature_config[question["category"]]
     else:
         temperature = 0.1
+        
+    if args.repetition_penalty is not None:
+        repetition_penalty = args.repetition_penalty
+    else:
+        repetition_penalty = 1.0
 
     choices = []
     chat_state = None  # for palm-2 model
@@ -56,7 +61,7 @@ def get_answer(
                     chat_state, model, conv, temperature, max_tokens
                 )
             else:
-                output = chat_completion_openai(model, conv, temperature, max_tokens)
+                output = chat_completion_openai(model, conv, temperature, repetition_penalty, max_tokens)
 
             conv.update_last_message(output)
             turns.append(output)
@@ -95,6 +100,9 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--force-temperature", type=float, help="Forcibly set a sampling temperature."
+    )
+    parser.add_argument(
+        "--repetition-penalty", type=float, help="Forcibly set a repetition penalty."
     )
     parser.add_argument(
         "--max-tokens",

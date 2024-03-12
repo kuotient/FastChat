@@ -404,7 +404,7 @@ def play_a_match_pair(match: MatchPair, output_file: str):
     return result
 
 
-def chat_completion_openai(model, conv, temperature, max_tokens, api_dict=None):
+def chat_completion_openai(model, conv, temperature, repetition_penalty, max_tokens, api_dict=None):
     if api_dict is not None:
         openai.api_base = api_dict["api_base"]
         openai.api_key = api_dict["api_key"]
@@ -418,6 +418,7 @@ def chat_completion_openai(model, conv, temperature, max_tokens, api_dict=None):
                 n=1,
                 temperature=temperature,
                 max_tokens=max_tokens,
+                repetition_penalty=repetition_penalty,
             )
             output = response["choices"][0]["message"]["content"]
             break
